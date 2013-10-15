@@ -5,6 +5,20 @@ Spree::OrderContents.class_eval do
     add_to_line_item(line_item, variant, quantity, currency, shipment, price)
   end
 
+    # we need to override this as well because we added a new check to be able to
+    # detect children from inside kits
+    def remove(variant, quantity=1, shipment=nil)
+      line_item = order.find_line_item_by_variant(variant, false) #allow kit childrens to be removed
+
+      unless line_item
+        raise ActiveRecord::RecordNotFound, "Line item not found for variant #{variant.sku}"
+      end
+
+      remove_from_line_item(line_item, variant, quantity, shipment)
+    end
+
+  private
+
   # Override from spree's original method to add the `price` argument passed by `add`
   def add_to_line_item(line_item, variant, quantity, currency=nil, shipment=nil, price=nil)
     if line_item
