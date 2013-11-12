@@ -16,4 +16,5 @@ Gem::Specification.new do |gem|
   gem.require_paths = ["lib"]
 
   gem.add_dependency("spree_core", ">=1.3")
+  # gem.add_dependency("spree_product_assembly")
 end

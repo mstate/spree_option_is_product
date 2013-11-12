@@ -1,8 +1,13 @@
 manifest_items_price = <<TEXT
-  <%= Spree::Money.new(item.line_item.price).to_html %>
+<% debugger %>
+  <%= display_price(item.line_item.price).to_html %>
 TEXT
+# manifest_items_price = <<TEXT
+#   <%= Spree::Money.new(item.line_item.price).to_html %>
+# TEXT
 Deface::Override.new(
-  :virtual_path => 'spree/checkout/_line_item_manifest',
+  # :virtual_path => 'spree/checkout/_line_item_manifest',
+  :virtual_path => 'spree/checkout/_delivery',
   :name  => "replace_delivery_manifest_price",
   :replace_contents => "td.item-price",
   :text => manifest_items_price,
@@ -52,3 +57,11 @@ Deface::Override.new(
   :set_attributes => "td[data-hook='order_item_description']",
   :attributes => {:class => 'order_item_description'}
 )
+
+Deface::Override.new(
+  :virtual_path => 'spree/admin/orders/_shipment_manifest',
+  :name  => "replace_line_item_find",
+  :replace => "erb[silent]:contains('line_item = order.find_line_item_by_variant(item.variant)')",
+  :text => "<% line_item = order.line_items.find_by(variant: item.variant) %>",
+)
+

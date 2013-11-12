@@ -8,5 +8,8 @@
   <td>
     <%= f.check_box :default_option %>
   </td>
+  <td>
+    <%= f.object.variant ? f.object.variant.sku : 'No Product Chosen' %>
+  </td>
 <% end %>
 
