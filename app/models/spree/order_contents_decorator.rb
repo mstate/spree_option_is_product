@@ -5,10 +5,11 @@ Spree::OrderContents.class_eval do
     line_item = force_new_line_item ? nil : order.find_line_item_by_variant(variant)
     line_item = add_to_line_item(line_item, variant, quantity, currency, shipment, price)
     # line_item = add_to_line_item(variant, quantity, currency, shipment)
-    order_updater.update_item_total
-    Spree::PromotionHandler::Cart.new(order, line_item).activate
-    Spree::ItemAdjustments.new(line_item).update
-    reload_totals
+    # order_updater.update_item_total
+    order.update_totals
+    # Spree::PromotionHandler::Cart.new(order, line_item).activate
+    # Spree::ItemAdjustments.new(line_item).update
+    # reload_totals
     line_item
   end
 
