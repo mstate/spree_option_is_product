@@ -61,7 +61,7 @@ Deface::Override.new(
 Deface::Override.new(
   :virtual_path => 'spree/admin/orders/_shipment_manifest',
   :name  => "replace_line_item_find",
-  :replace => "erb[silent]:contains('line_item = order.find_line_item_by_variant(item.variant)')",
+  :replace => "erb[silent]:contains('line_item = order.find_line_item_by_variant_for_options(item.variant)')",
   :text => "<% line_item = order.line_items.find_by(variant: item.variant) %>",
 )
 
