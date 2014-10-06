@@ -1,6 +1,7 @@
 new_variant_display = %(
     <% if @product.option_types.collect(&:product_based).include?(true) %>
       <%= render :partial => 'spree/products/selected_options_display'%>
+      <%= hidden_field_tag "variant_id", @product.master.id %>
     <% elsif @product.variants_and_option_values(current_currency).any? %>
 )
 
