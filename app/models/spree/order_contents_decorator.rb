@@ -6,10 +6,15 @@ Spree::OrderContents.class_eval do
     line_item = add_to_line_item(line_item, variant, quantity, currency, shipment, price)
     # line_item = add_to_line_item(variant, quantity, currency, shipment)
     # order_updater.update_item_total
-    order.update_totals
+    # order.update_totals
     # Spree::PromotionHandler::Cart.new(order, line_item).activate
     # Spree::ItemAdjustments.new(line_item).update
     # reload_totals
+    reload_totals
+    shipment.present? ? shipment.update_amounts : order.ensure_updated_shipments
+    Spree::PromotionHandler::Cart.new(order, line_item).activate
+    Spree::ItemAdjustments.new(line_item).update
+    reload_totals
     line_item
   end
 
