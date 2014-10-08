@@ -48,7 +48,7 @@ table.stock-contents{
       div.middle-arrow-select{
         width: 100%;
         height: 32px;
-        background: url(/assets/line_item_arrow.png) no-repeat 42px 10px;
+        background: url(image-path("line_item_arrow.png")) no-repeat 42px 10px;
         padding-bottom: 30px;
       }
     }
@@ -64,7 +64,7 @@ table.stock-contents{
           div.middle-arrow-select{
             width: 100%;
             height: 32px;
-            background: url(/assets/line_item_arrow.png) no-repeat 42px 10px;
+            background: url(image-path("line_item_arrow.png")) no-repeat 42px 10px;
             padding-bottom: 30px;
           }
         }
