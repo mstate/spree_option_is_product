@@ -31,7 +31,7 @@ Spree::OrderContents.class_eval do
       # line_item.save
     else
       opts = { currency: order.currency }.merge ActionController::Parameters.new(options).
-                                              permit(PermittedAttributes.line_item_attributes)
+                                              permit(Spree::PermittedAttributes.line_item_attributes)
       line_item = order.line_items.new(quantity: quantity,
                                         variant: variant,
                                         options: opts)
