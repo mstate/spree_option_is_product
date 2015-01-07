@@ -24,7 +24,9 @@ Spree::OrderContents.class_eval do
   # Override from spree's original method to add the `price` argument passed by `add`
   # def add_to_line_item(variant, quantity, options = {})
   # def add_to_line_item(line_item, variant, quantity, currency=nil, shipment=nil, price=nil)
+
   private
+
   def add_to_line_item(line_item, variant, quantity, options={})
     if line_item
       # line_item.target_shipment = shipment

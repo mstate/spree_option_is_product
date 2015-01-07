@@ -28,7 +28,7 @@ module Spree
             # populating the order if adding the same product.
             # Here we force the creation of new LineItems so we don't
             # merge product's options with existing items in the order.
-            li = current_order.contents.add(ov.variant,(ov.quantity * parent.quantity),current_currency, nil, (price || ov.variant.price), true)
+            li = current_order.contents.add(ov.variant,(ov.quantity * parent.quantity),{currency:current_currency, shipment: nil, price: (price || ov.variant.price), force_new_line_item: true})
             li.parent_id = parent.id
             li.save!
           end
