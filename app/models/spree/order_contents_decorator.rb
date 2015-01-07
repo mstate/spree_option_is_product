@@ -3,7 +3,7 @@ Spree::OrderContents.class_eval do
   # def add(variant, quantity=1, currency=nil, shipment=nil, price=nil, force_new_line_item=false)
   def add(variant, quantity=1, options={})
     # force spree to create a new line item for products that are options instead of adding the quantity to those already on the order.
-    line_item = force_new_line_item ? nil : order.find_line_item_by_variant_for_options(variant)
+    line_item = options[:force_new_line_item] ? nil : order.find_line_item_by_variant_for_options(variant)
     # line_item = add_to_line_item(line_item, variant, quantity, currency, shipment, price)
     line_item = add_to_line_item(line_item, variant, quantity, options)
     # line_item = add_to_line_item(variant, quantity, currency, shipment)
