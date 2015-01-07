@@ -12,17 +12,19 @@ Spree::OrderContents.class_eval do
     # Spree::PromotionHandler::Cart.new(order, line_item).activate
     # Spree::ItemAdjustments.new(line_item).update
     # reload_totals
-    reload_totals
-    shipment.present? ? shipment.update_amounts : order.ensure_updated_shipments
-    Spree::PromotionHandler::Cart.new(order, line_item).activate
-    Spree::ItemAdjustments.new(line_item).update
-    reload_totals
-    line_item
+    # reload_totals
+    # options.has_key?(:shipment) ? shipment.update_amounts : order.ensure_updated_shipments
+    # Spree::PromotionHandler::Cart.new(order, line_item).activate
+    # Spree::ItemAdjustments.new(line_item).update
+    # reload_totals
+    # line_item
+    after_add_or_remove(line_item, options)
   end
 
   # Override from spree's original method to add the `price` argument passed by `add`
   # def add_to_line_item(variant, quantity, options = {})
   # def add_to_line_item(line_item, variant, quantity, currency=nil, shipment=nil, price=nil)
+  private
   def add_to_line_item(line_item, variant, quantity, options={})
     if line_item
       # line_item.target_shipment = shipment
