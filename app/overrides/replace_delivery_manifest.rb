@@ -1,6 +1,5 @@
 manifest_items_price = <<TEXT
-<% debugger %>
-  <%= display_price(item.line_item.price).to_html %>
+  <%= Spree::Money.new(item.line_item.price, currency: item.line_item.currency).to_html %>
 TEXT
 # manifest_items_price = <<TEXT
 #   <%= Spree::Money.new(item.line_item.price).to_html %>
