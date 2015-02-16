@@ -1,3 +1,3 @@
 module SpreeOptionIsProduct
-  VERSION = "0.0.2"
+  VERSION = "2.4.4"
 end
