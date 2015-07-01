@@ -4,16 +4,18 @@ Spree::Product.class_eval do
     option_types.collect(&:product_based).include?(true)
   end
 
-  def product_options
+  def product_options(override_options={})
     return nil unless has_product_options?
-
     options = []
     option_types.each do |o|
-      options << {
+      new_options_hash = {
         :id       => o.id,
         :display  => o.presentation,
-        :optional => o.optional?,
-        :options  => o.option_values.collect(&:to_hash) }
+        :optional => o.optional? || override_options.try(:[],o.id).try(:[],:optional),
+        :options  => o.option_values.collect(&:to_hash)
+      }
+      new_options_hash[:no_option_display] = override_options[o.id][:no_option_display] if override_options.try(:[],o.id).try(:[],:no_option_display)
+      options << new_options_hash
     end
     options
   end

@@ -1,8 +1,9 @@
 <% unless @product.product_options.blank? %>
   <div class="row" id="product-is-option-configure">
     <!-- <h2 class="product-title">Configure</h2> -->
-    <div class="product_options_group">
-      <% @product.product_options.each do |o| %>
+    <div class="product_options_group" id="<%= "for_product_options_#{}" %>">
+      <% @overrides_for_options ||={} %>
+      <% @product.product_options(@overrides_for_options).each do |o| %>
         <%
           optional_value = o[:options].select{ |opt| opt[:default_option] == true }
           optional_value_id = (!optional_value.empty?) ? optional_value.first : {}
@@ -21,7 +22,7 @@
                   <label>
                     <%= radio_button_tag "option_#{o[:display].downcase.gsub(/\s/, '_')}", "", (optional_value.empty? ? true : false), {:class => 'product_option'} %>
                     <span class="options-row" data-hook="options-row">
-                      <strong>No <%=o[:display] %></strong>
+                      <strong><%= o[:no_option_display] || "No #{o[:display]}" %></strong>
                     </span>
                     <input type="hidden" name="<%= "option_#{o[:id]}_price" %>" value="0" />
                     <input type="hidden" name="<%= "option_#{o[:id]}_qty" %>" value="<%= "0" %>" />

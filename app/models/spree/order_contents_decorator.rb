@@ -25,14 +25,13 @@ Spree::OrderContents.class_eval do
                                         options: opts)
       line_item.target_shipment = options[:shipment] if options.has_key? :shipment
     end
-    
     line_item.save!
 
     # set currency if line_item didn't take care of it.
     line_item.update_attributes(currency: order.currency) if line_item.currency.nil?
-    
+
     order.reload
-    
+
     line_item
   end
 
