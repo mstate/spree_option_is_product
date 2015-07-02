@@ -12,8 +12,12 @@ Spree::Product.class_eval do
         :id       => o.id,
         :display  => o.presentation,
         :optional => o.optional? || override_options.try(:[],o.id).try(:[],:optional),
-        :options  => o.option_values.collect(&:to_hash)
       }
+      if override_options.try(:[],o.id).try(:[],:skip_options)
+        new_options_hash[:options] = []
+      else
+        new_options_hash[:options] = o.option_values.collect(&:to_hash)
+      end
       new_options_hash[:no_option_display] = override_options[o.id][:no_option_display] if override_options.try(:[],o.id).try(:[],:no_option_display)
       options << new_options_hash
     end
